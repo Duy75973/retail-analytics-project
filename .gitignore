@@ -1,0 +1,18 @@
+# Môi trường ảo
+venv/
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# IDE/Editor configs
+.vscode/
+.idea/
+
+# Dữ liệu
+data/raw/
+data/processed/
+
+# Notebook checkpoints
+.ipynb_checkpoints/
