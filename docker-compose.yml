@@ -7,12 +7,20 @@ services:
     container_name: mysql_retail
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: Duy171103 # <-- THAY MẬT KHẨU CỦA BẠN VÀO ĐÂY
-      MYSQL_DATABASE: retail_db
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD} # Đọc password từ file .env
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+
+  etl:
+    build: .  # Yêu cầu Docker Compose xây dựng image từ Dockerfile trong thư mục hiện tại
+    container_name: retail_etl
+    depends_on:
+      - db   # Chỉ chạy service này SAU KHI service 'db' đã khởi động xong
+    env_file:
+      - .env # Truyền toàn bộ biến môi trường từ file .env vào container này
 
 volumes:
   mysql_data:
